@@ -12,6 +12,10 @@ public class Node<T>
 		siguiente = null;
 	}
 	
+	public T darElemento()
+	{
+		return elemento;
+	}
 	public Node darSiguiente()
 	{
 		return siguiente;

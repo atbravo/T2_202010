@@ -18,9 +18,6 @@ public class Modelo {
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	
-	private Node cabeza;
-	
-	private Node actual;
 	
 	public Modelo()
 	{
@@ -34,13 +31,7 @@ public class Modelo {
 	public Modelo(int capacidad)
 	{
 		datos = new ArregloDinamico(capacidad);
-		cabeza = null;
-		actual = null;
-	}
-	
-	public void asignarCabeza()
-	{
-		
+
 	}
 	
 	/**
