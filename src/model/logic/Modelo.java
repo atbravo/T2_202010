@@ -2,6 +2,7 @@ package model.logic;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
+import model.data_structures.Node;
 
 /**
  * Definicion del modelo del mundo
@@ -16,6 +17,11 @@ public class Modelo {
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
+	
+	private Node cabeza;
+	
+	private Node actual;
+	
 	public Modelo()
 	{
 		datos = new ArregloDinamico(7);
@@ -28,6 +34,13 @@ public class Modelo {
 	public Modelo(int capacidad)
 	{
 		datos = new ArregloDinamico(capacidad);
+		cabeza = null;
+		actual = null;
+	}
+	
+	public void asignarCabeza()
+	{
+		
 	}
 	
 	/**
