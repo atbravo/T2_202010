@@ -54,7 +54,6 @@ public class Lista<T> implements ILista<T> {
 		}
 	}
 
-	@Override
 	public int darTamaño() {
 		Node act = cabeza;
 		int i = 0;
@@ -65,7 +64,6 @@ public class Lista<T> implements ILista<T> {
 		return i;
 	}
 
-	@Override
 	public T darElementoPosicion(int pos) {
 		Node act = cabeza;
 		int i = 0;
@@ -78,7 +76,6 @@ public class Lista<T> implements ILista<T> {
 		return (T) act.darElemento();
 	}
 
-	@Override
 	public T recorrerActual(int i) {
 		Node act = cabeza;
 		while (act != null && i > 0) {
@@ -93,7 +90,7 @@ public class Lista<T> implements ILista<T> {
 		return (T) actual.darElemento();
 	}
 
-	@Override
+
 	public T darElementoActual() {
 		if (actual != null)
 			return (T) actual.darElemento();
@@ -111,7 +108,6 @@ public class Lista<T> implements ILista<T> {
 
 	}
 
-	@Override
 	public T volverActual() {
 		Node act = cabeza;
 		boolean ya = false;
