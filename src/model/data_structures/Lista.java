@@ -1,6 +1,6 @@
 package model.data_structures;
 
-public class Lista<T> implements ILista<T> {
+public class Lista<T>  implements ILista<T> {
 	private Node cabeza;
 	private Node actual;
 
@@ -22,12 +22,12 @@ public class Lista<T> implements ILista<T> {
 	/**
 	 * Agrega el elemento dado por parametro al final de la lista
 	 */
-	public void agregarElemento(T elemento) {
+	public Node agregarElemento(T elemento) {
 		Node nuevo = new Node<T>(elemento);
 		if (cabeza == null)
 			crearLista(elemento);
 		else {
-			Node actual = cabeza;
+			
 			Node siguiente = cabeza.darSiguiente();
 			while (siguiente != null) {
 				actual = siguiente;
@@ -35,6 +35,7 @@ public class Lista<T> implements ILista<T> {
 			}
 			actual.asignarSiguiente(nuevo);
 		}
+		return cabeza;
 	}
 
 	/**
@@ -126,5 +127,4 @@ public class Lista<T> implements ILista<T> {
 		}
 		return (T) actual.darElemento();
 	}
-
 }
