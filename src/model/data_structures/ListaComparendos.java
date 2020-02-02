@@ -16,12 +16,12 @@ public class ListaComparendos extends Lista<Comparendo> {
 
 	public void agregarJsonObject(JsonObject jComparendo) {
 		GsonBuilder builder = new GsonBuilder();
-		builder.setFieldNamingStrategy(new FieldNamingStrategy() {
+		/*builder.setFieldNamingStrategy(new FieldNamingStrategy() {
 
 			public String translateName(Field f) {
 				return limpiar(f.getName());
 			}
-		});
+		});*/
 		Gson gson = builder.create();
 		Comparendo comparendo = gson.fromJson(jComparendo, Comparendo.class);
 		agregarElemento(comparendo);
