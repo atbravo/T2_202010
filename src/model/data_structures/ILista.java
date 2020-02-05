@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import model.logic.Node;
+
 public interface ILista<T>
 {
 	public Node agregarElemento(T elem);

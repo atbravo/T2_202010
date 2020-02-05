@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import model.logic.Node;
+
 public class Lista<T>  implements ILista<T> {
 	private Node cabeza;
 	private Node actual;

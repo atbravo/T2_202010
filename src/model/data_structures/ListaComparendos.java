@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 
+import model.logic.Comparendo;
+
 public class ListaComparendos extends Lista<Comparendo> {
 	public ListaComparendos() {
 
