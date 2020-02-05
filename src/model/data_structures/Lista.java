@@ -32,6 +32,7 @@ public class Lista<T>  implements ILista<T> {
 	public void crearLista(T cabe) {
 		cabeza = new Node<T>(cabe);
 		actual = cabeza;
+		ultimo = cabeza;
 	}
 
 	/**
