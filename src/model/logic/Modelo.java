@@ -96,7 +96,7 @@ public class Modelo {
 	{
 		try
 		{
-			BufferedReader bf = new BufferedReader(new FileReader(new File("./data/comparendos_dei_2018_small.geojson")));
+			BufferedReader bf = new BufferedReader(new FileReader(new File("./data/comparendos_dei_2018.geojson")));
 			JsonElement element = JsonParser.parseReader(bf);
 			if (element.isJsonObject()) 
 			{

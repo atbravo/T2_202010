@@ -26,7 +26,7 @@ public class ListaComparendos extends Lista<Comparendo> {
 		});*/
 		Gson gson = builder.create();
 		Comparendo comparendo = gson.fromJson(jComparendo, Comparendo.class);
-		agregarElemento(comparendo);
+		agregarAlFinal(comparendo);
 	}
 
 	public void imprimirComparendoenPosicion(int i) {

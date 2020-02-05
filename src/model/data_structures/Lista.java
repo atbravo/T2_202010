@@ -5,10 +5,23 @@ import model.logic.Node;
 public class Lista<T>  implements ILista<T> {
 	private Node cabeza;
 	private Node actual;
+	private Node ultimo;
 
 	public Lista() {
 		cabeza = null;
 		actual = null;
+		ultimo = null;
+	}
+	
+	public void agregarAlFinal(T elemento)
+	{
+		if(cabeza == null)
+			crearLista(elemento);
+		else
+		{
+			ultimo.asignarSiguiente(new Node<T>(elemento));
+			ultimo = ultimo.darSiguiente();
+		}
 	}
 
 	/**
@@ -36,6 +49,7 @@ public class Lista<T>  implements ILista<T> {
 				siguiente = actual.darSiguiente();
 			}
 			actual.asignarSiguiente(nuevo);
+			ultimo = actual.darSiguiente();
 		}
 		return cabeza;
 	}
@@ -47,7 +61,9 @@ public class Lista<T>  implements ILista<T> {
 		Node act = cabeza;
 
 		if (cabeza != null && cabeza.darElemento().equals(elemento)) {
-			cabeza = cabeza.darSiguiente();
+			Node nuevaCab = cabeza.darSiguiente();
+			cabeza.asignarSiguiente(null);
+			cabeza = nuevaCab;
 			return;
 		}
 
