@@ -101,7 +101,7 @@ public class Modelo {
 
 	public void cargar() {
 		try {
-			BufferedReader bf = new BufferedReader(new FileReader("./data/comparendos_dei_2018.geojson"));
+			BufferedReader bf = new BufferedReader(new FileReader("./data/comparendos_dei_2018_small.geojson"));
 			JsonElement element = JsonParser.parseReader(bf);
 			if (element.isJsonObject()) {
 				JsonObject admin = element.getAsJsonObject();
