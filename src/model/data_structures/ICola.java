@@ -16,6 +16,11 @@ public interface ICola<T>
 	public T eliminarElemento() throws Exception;
 
 	/**
+	 * Retorna el primer elemento de la lista 
+	 * @return T, el primer elemento de la lista
+	 */
+	public T darPrimero();
+	/**
 	 * Retorna el elemento en la posicion i
 	 * @param pos la posicion, inicia desde 0
 	 * @return elemento en posicion dada

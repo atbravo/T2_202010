@@ -14,14 +14,23 @@ public class Ubicacion
 		coordinates[2] = ceros;
 		
 	}
+	/**
+	 * Da las coordenadas de latitud 
+	 * @return coordenadas en la posicion 0 
+	 */
 	public double darLatitud()
 	{
 		return coordinates[0];
 	}
+	/**
+	 * Da la longitud de las coordenadas del comparendo 		
+	 * @return coordenadas en la posicion 1 
+	 */
 	public double darLongitud()
 	{
 		return coordinates[1];
 	}
+
 	public String toString()
 	{
 		return "Latitud: " + darLatitud() + "\n" + "Longitud:" + darLongitud();

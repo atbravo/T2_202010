@@ -10,7 +10,7 @@ public interface IArregloDinamico {
 
 	/**
 	 * Retornar el numero de elementos presentes en el arreglo
-	 * @return
+	 * @return el tamano del arreglo
 	 */
 	int darTamano( );
 	

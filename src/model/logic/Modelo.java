@@ -100,7 +100,9 @@ public class Modelo {
 	public String eliminar(String dato) {
 		return datos.eliminar(dato);
 	}
-
+	/**
+	 * Lee el Json y crea el objeto de comparendos
+	 */
 	public void cargar() {
 		try {
 			BufferedReader bf = new BufferedReader(new FileReader("./data/comparendos_dei_2018_small.geojson"));
@@ -248,7 +250,7 @@ public class Modelo {
 						listaSegundo.removeAll(listaMax);
 						rachaSegundo = 0;
 					}
-	
+
 					if(tipoSegundo.equals(actual.darDetalles().darInfraccion()))
 					{
 						rachaSegundo++;
@@ -281,8 +283,8 @@ public class Modelo {
 				System.out.println(comparendo);
 				System.out.println();
 			}
-			
-			
+
+
 		}
 		catch (Exception e) {
 
