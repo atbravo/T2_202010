@@ -170,8 +170,22 @@ public class Modelo {
 				responderRequerimiento1();
 			else if(op == 2 )
 				responderRequerimiento2();
-			else if(op == 2)
-				responderRequerimiento3();
+			else if(op == 3)
+			{
+				try
+				{
+					System.out.println("Ingrese tipo de infraccion a buscar:");
+					String infraccion = in.readLine();
+					System.out.println("¿Cuantas infracciones desea buscar?");
+					int n = Integer.parseInt(in.readLine());
+					responderRequerimiento3(infraccion, n);
+				}
+				catch(Exception e)
+				{
+					System.out.println("Ocurrio un error, se reiniciara el programa");
+					responderRequerimientos();
+				}
+			}
 			else
 				responderRequerimientos();
 		}
@@ -265,8 +279,34 @@ public class Modelo {
 			System.out.println(e.getMessage()); 
 		}
 	}
-	public void responderRequerimiento3()
+	public void responderRequerimiento3(String infraccion, int n)
 	{
+		try
+		{
+			int encontrados = 0;
+			ArrayList<Comparendo> lista = new ArrayList<>();
+			while(n>0 && pila.darTamaño() > 0)
+			{
+				Comparendo actual = pila.eliminarElemento();
+				if(actual.darDetalles().darInfraccion().equals(infraccion))
+				{
+					encontrados++;
+					n--;
+					lista.add(actual);
+				}
+			}
+			System.out.println("Se encontraron " + encontrados + " registros");
+			System.out.println();
+			for (Comparendo comparendo : lista) 
+			{
+				System.out.println(comparendo);
+				System.out.println();
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 
 	}
 }
