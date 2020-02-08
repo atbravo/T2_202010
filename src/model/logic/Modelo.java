@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
@@ -45,7 +47,7 @@ public class Modelo {
 		cola = new Cola<Comparendo>();
 		pila = new Pila<Comparendo>();
 		cargar();
-		responderRequerimiento1();
+		responderRequerimientos();
 
 	}
 
@@ -155,12 +157,116 @@ public class Modelo {
 		}
 
 	}
+	public void responderRequerimientos()
+	{
 
+		try
+		{
+			System.out.println("Ingrese un numero del uno al tres:");
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			String opcion = in.readLine();
+			int op = Integer.parseInt(opcion);
+			if(op == 1)
+				responderRequerimiento1();
+			else if(op == 2 )
+				responderRequerimiento2();
+			else if(op == 2)
+				responderRequerimiento3();
+			else
+				responderRequerimientos();
+		}
+		catch(Exception e)
+		{
+			responderRequerimientos();
+		}
+	}
 	public void responderRequerimiento1()
 	{
 		System.out.println("Total comparendos leidos en pila:" + pila.darTamaño());
 		System.out.println("Total comparendos leidos en cola:" + cola.darTamaño());
 		System.out.println("Primer comparendo de pila y cola (respectivamente):");
 		ImprimirenPosicion(0);
+	}
+	public void responderRequerimiento2()
+	{
+		ArrayList<Comparendo> listaMax = new ArrayList<>();
+		ArrayList<Comparendo> listaSegundo = new ArrayList<>();
+		int maximo = 0;
+		try
+		{
+			Comparendo actual = cola.eliminarElemento();
+			String maxTipo = actual.darDetalles().darInfraccion();
+			maximo = 1;
+			int rachaMaximo = 1;
+			int rachaSegundo = 0;
+			String tipoSegundo = "";
+			listaMax.add(actual);
+			while(cola.darTamaño() > 0)
+			{
+
+				actual = cola.eliminarElemento();
+				if(maxTipo.equals(actual.darDetalles().darInfraccion()) && rachaMaximo > 0)
+				{
+					rachaMaximo++;
+					if(rachaMaximo >= maximo)
+					{
+						maximo = rachaMaximo;
+						listaMax.add(actual);
+					}
+
+				}
+				else
+				{ 
+					rachaMaximo = 0;
+					if(rachaSegundo < 1)
+					{
+						tipoSegundo = actual.darDetalles().darInfraccion();
+						listaSegundo.removeAll(listaMax);
+						rachaSegundo = 0;
+					}
+	
+					if(tipoSegundo.equals(actual.darDetalles().darInfraccion()))
+					{
+						rachaSegundo++;
+						listaSegundo.add(actual);
+						if(rachaSegundo >= maximo)
+						{
+							rachaMaximo = rachaSegundo;
+							maximo = rachaSegundo;
+							rachaSegundo = 0;
+							maxTipo = tipoSegundo;
+							tipoSegundo = "";
+							listaMax.removeAll(listaMax);
+							listaMax.addAll(listaSegundo);
+							listaSegundo.removeAll(listaSegundo);
+						}
+					}
+					else
+					{
+						listaSegundo.removeAll(listaSegundo);
+						tipoSegundo = actual.darDetalles().darInfraccion();
+						rachaSegundo = 1;
+						listaSegundo.add(actual);
+					}
+				}
+			}
+			System.out.println("Tipo Maximo: "  + maxTipo);
+			System.out.println("Cantidad: " + maximo);
+			for (Comparendo comparendo : listaMax)
+			{
+				System.out.println(comparendo);
+				System.out.println();
+			}
+			
+			
+		}
+		catch (Exception e) {
+
+			System.out.println(e.getMessage()); 
+		}
+	}
+	public void responderRequerimiento3()
+	{
+
 	}
 }

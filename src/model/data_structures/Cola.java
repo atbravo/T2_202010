@@ -58,6 +58,7 @@ public class Cola<T> implements ICola<T>
 			}
 			else
 			{
+				eliminado = primero;
 				Node<T> nuevoPrimero = primero.darSiguiente();
 				primero.asignarSiguiente(null);
 				primero = nuevoPrimero;
