@@ -157,6 +157,10 @@ public class Modelo {
 		}
 
 	}
+	/**
+	 * Permite al usuario escoger el proceso a realizar
+	 * Si el usuario ingresa una opcion no listada se reinicia el programa
+	 */
 	public void responderRequerimientos()
 	{
 
@@ -194,6 +198,9 @@ public class Modelo {
 			responderRequerimientos();
 		}
 	}
+	/**
+	 * Metodo que responde al primer requerimiento, imprime la informacion del primer comparendo en cada estructura
+	 */
 	public void responderRequerimiento1()
 	{
 		System.out.println("Total comparendos leidos en pila:" + pila.darTamaño());
@@ -201,6 +208,9 @@ public class Modelo {
 		System.out.println("Primer comparendo de pila y cola (respectivamente):");
 		ImprimirenPosicion(0);
 	}
+	/**
+	 * Busca el tipo de infraccion que aparece en mas comparendos consecutivos y los imprime
+	 */
 	public void responderRequerimiento2()
 	{
 		ArrayList<Comparendo> listaMax = new ArrayList<>();
@@ -279,6 +289,12 @@ public class Modelo {
 			System.out.println(e.getMessage()); 
 		}
 	}
+	/**
+	 * Busca los primeros n registros que tienen el tipo de infraccion solicitado
+	 * En caso de que la cantidad de registros encontrados sea menor que los solicitados imprime los que encuentre
+	 * @param infraccion el tipo de infraccion buscado
+	 * @param n la cantidad de registros solicitados
+	 */
 	public void responderRequerimiento3(String infraccion, int n)
 	{
 		try
