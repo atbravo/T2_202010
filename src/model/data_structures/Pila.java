@@ -23,6 +23,15 @@ public class Pila<T> implements IPila<T>
 		ultimo = null;	
 		tamaño = 0;	
 	}	
+	
+	/**
+	 * Retorna el ultimo elemento de la pila
+	 * @return ultimo
+	 */
+	public T darUltimo()
+	{
+		return ultimo.darElemento();
+	}
 	public void agregarElemento(T elemento)	
 	{	
 		Node<T> nuevo = new Node<T>(elemento);	
