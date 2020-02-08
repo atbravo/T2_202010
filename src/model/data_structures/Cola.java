@@ -23,6 +23,16 @@ public class Cola<T> implements ICola<T>
 		ultimo = null;
 		tamaño = 0;
 	}
+	
+	/**
+	 * retorna el primer elemento de la cola
+	 * @return primero
+	 */
+	public T darPrimero()
+	{
+		return primero.darElemento();
+	}
+	
 	public void agregarElemento(T elemento)
 	{
 		Node<T> nuevo = new Node<T>(elemento);

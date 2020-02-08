@@ -20,7 +20,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
-import model.data_structures.ListaComparendos;
+import model.data_structures.Admincomparendos;
 
 /**
  * Definicion del modelo del mundo
@@ -35,11 +35,11 @@ public class Modelo {
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
-	private ListaComparendos comparendos;
+	private Admincomparendos comparendos;
 
 	public Modelo()
 	{
-		comparendos = new ListaComparendos();
+		comparendos = new Admincomparendos();
 		cargar();
 		responderRequerimiento1();
 	}
@@ -118,11 +118,7 @@ public class Modelo {
 	}
 	public void responderRequerimiento1()
 	{
-		System.out.println("Total Comparendos: " + comparendos.darTamaño());
-		System.out.println("Informacion comparendo 1:\n");
-		comparendos.imprimirComparendoenPosicion(0);
-		System.out.println("Informacion ultimo comparendo:\n");
-		comparendos.imprimirComparendoenPosicion(comparendos.darTamaño()-1);
+
 	}
 }
 

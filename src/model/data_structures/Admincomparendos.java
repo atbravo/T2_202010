@@ -11,37 +11,21 @@ import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 
 import model.logic.Comparendo;
 
-public class ListaComparendos extends Lista<Comparendo> {
-	public ListaComparendos() {
+public class Admincomparendos {
+	public Admincomparendos() {
 
 	}
 
-	public void agregarJsonObject(JsonObject jComparendo) {
+	public void agregarJsonObject(JsonObject jComparendo)
+	{
 		GsonBuilder builder = new GsonBuilder();
-		/*builder.setFieldNamingStrategy(new FieldNamingStrategy() {
-
-			public String translateName(Field f) {
-				return limpiar(f.getName());
-			}
-		});*/
 		Gson gson = builder.create();
 		Comparendo comparendo = gson.fromJson(jComparendo, Comparendo.class);
-		agregarAlFinal(comparendo);
+		agregarPilaCola(comparendo);
 	}
-
-	public void imprimirComparendoenPosicion(int i) {
-		System.out.println(darElementoPosicion(i));
-	}
-
-	public String limpiar(String cadena) {
-		String[] caja = cadena.split("_");
-		String respuesta = caja[0].toLowerCase();
-		for(int i = 1; i < caja.length; i++)
-		{
-			respuesta = respuesta + (caja[i].charAt(0)) + (caja[i].substring(1).toLowerCase());
-			
-		}
-		return respuesta;
+	public void agregarPilaCola(Comparendo comparendo)
+	{
 		
 	}
+
 }
