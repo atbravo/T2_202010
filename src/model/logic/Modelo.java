@@ -31,6 +31,8 @@ import model.data_structures.Pila;
  */
 public class Modelo {
 
+	public final String RUTA = "./data/comparendos_dei_2018_small.geojson";
+	
 	private Cola<Comparendo> cola;
 	private Pila<Comparendo> pila;
 
@@ -103,7 +105,7 @@ public class Modelo {
 
 	public void cargar() {
 		try {
-			BufferedReader bf = new BufferedReader(new FileReader("./data/comparendos_dei_2018_small.geojson"));
+			BufferedReader bf = new BufferedReader(new FileReader(RUTA));
 			JsonElement element = JsonParser.parseReader(bf);
 			if (element.isJsonObject()) {
 				JsonObject admin = element.getAsJsonObject();
