@@ -217,8 +217,10 @@ public class Modelo {
 	 */
 	public void responderRequerimiento2()
 	{
-		ArrayList<Comparendo> listaMax = new ArrayList<>();
-		ArrayList<Comparendo> listaSegundo = new ArrayList<>();
+		//ArrayList<Comparendo> listaMax = new ArrayList<>();
+		//ArrayList<Comparendo> listaSegundo = new ArrayList<>();
+		Pila<Comparendo> pilaMax = new Pila<>();
+		Pila<Comparendo> pilaSegundo = new Pila<>();
 		int maximo = 0;
 		try
 		{
@@ -228,7 +230,8 @@ public class Modelo {
 			int rachaMaximo = 1;
 			int rachaSegundo = 0;
 			String tipoSegundo = "";
-			listaMax.add(actual);
+			//listaMax.add(actual);
+			pilaMax.agregarElemento(actual);
 			while(cola.darTamaño() > 0)
 			{
 
@@ -239,7 +242,8 @@ public class Modelo {
 					if(rachaMaximo >= maximo)
 					{
 						maximo = rachaMaximo;
-						listaMax.add(actual);
+						//listaMax.add(actual);
+						pilaMax.agregarElemento(actual);
 					}
 
 				}
@@ -249,14 +253,19 @@ public class Modelo {
 					if(rachaSegundo < 1)
 					{
 						tipoSegundo = actual.darDetalles().darInfraccion();
-						listaSegundo.removeAll(listaMax);
+						//listaSegundo.removeAll(listaMax);
+						while(pilaSegundo.darTamaño() > 0)
+						{
+							pilaSegundo.eliminarElemento();
+						}						
 						rachaSegundo = 0;
 					}
 
 					if(tipoSegundo.equals(actual.darDetalles().darInfraccion()))
 					{
 						rachaSegundo++;
-						listaSegundo.add(actual);
+						//listaSegundo.add(actual);
+						pilaSegundo.agregarElemento(actual);
 						if(rachaSegundo >= maximo)
 						{
 							rachaMaximo = rachaSegundo;
@@ -264,26 +273,42 @@ public class Modelo {
 							rachaSegundo = 0;
 							maxTipo = tipoSegundo;
 							tipoSegundo = "";
-							listaMax.removeAll(listaMax);
-							listaMax.addAll(listaSegundo);
-							listaSegundo.removeAll(listaSegundo);
+							while(pilaMax.darTamaño() > 0)
+							{
+								pilaMax.eliminarElemento();
+							}
+							//listaMax.removeAll(listaMax);
+							//listaMax.addAll(listaSegundo);
+							for(int i = 0; i <= pilaSegundo.darTamaño(); i++)
+							{
+								pilaMax.agregarElemento(pilaSegundo.darUltimo());
+								pilaSegundo.eliminarElemento();
+							}
+							//listaSegundo.removeAll(listaSegundo);
 						}
 					}
 					else
 					{
-						listaSegundo.removeAll(listaSegundo);
+						//listaSegundo.removeAll(listaSegundo);
+						while(pilaSegundo.darTamaño() > 0)
+						{
+							pilaSegundo.eliminarElemento();
+						}	
 						tipoSegundo = actual.darDetalles().darInfraccion();
 						rachaSegundo = 1;
-						listaSegundo.add(actual);
+						//listaSegundo.add(actual);
+						pilaSegundo.agregarElemento(actual);
 					}
 				}
 			}
 			System.out.println("Tipo Maximo: "  + maxTipo);
 			System.out.println("Cantidad: " + maximo);
-			for (Comparendo comparendo : listaMax)
+			System.out.println();
+			while(pilaMax.darTamaño() > 0)
 			{
-				System.out.println(comparendo);
+				System.out.println(pilaMax.darUltimo());
 				System.out.println();
+				pilaMax.eliminarElemento();
 			}
 
 

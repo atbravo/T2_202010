@@ -36,7 +36,11 @@ public class Pila<T> implements IPila<T>
 	{	
 		Node<T> nuevo = new Node<T>(elemento);	
 		if(primero == null)	
+		{
 			primero = nuevo;	
+
+		}
+
 		else	
 			ultimo.asignarSiguiente(nuevo);	
 		ultimo = nuevo;	
