@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico implements IArregloDinamico {
+public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico <T> {
 		/**
 		 * Capacidad maxima del arreglo
 		 */
@@ -19,7 +19,7 @@ public class ArregloDinamico implements IArregloDinamico {
         /**
          * Arreglo de elementos de tamaNo maximo
          */
-        private String elementos[ ];
+        private T elementos[];
 
         /**
          * Construir un arreglo con la capacidad maxima inicial.
@@ -27,18 +27,19 @@ public class ArregloDinamico implements IArregloDinamico {
          */
 		public ArregloDinamico( int max )
         {
-               elementos = new String[max];
+            elementos =(T[]) new Comparable [max];
                tamanoMax = max;
                tamanoAct = 0;
         }
-        
-		public void agregar( String dato )
+		@Override
+		public void agregar( T dato )
         {
                if ( tamanoAct == tamanoMax )
                {  // caso de arreglo lleno (aumentar tamaNo)
                     tamanoMax = 2 * tamanoMax;
-                    String [ ] copia = elementos;
-                    elementos = new String[tamanoMax];
+                    T [ ] copia = elementos;
+                    //elementos = new T [tamanoMax];
+                    elementos =(T[]) new Comparable [tamanoMax];
                     for ( int i = 0; i < tamanoAct; i++)
                     {
                      	 elementos[i] = copia[i];
@@ -48,30 +49,50 @@ public class ArregloDinamico implements IArregloDinamico {
                elementos[tamanoAct] = dato;
                tamanoAct++;
        }
-
+		@Override
 		public int darCapacidad() {
 			return tamanoMax;
 		}
-
+		@Override
 		public int darTamano() {
 			return tamanoAct;
 		}
-
-		public String darElemento(int i) {
-			// TODO implementar
-			return null;
+		@Override
+		public T darElemento(int i) {
+			// TODO HECHO implementar
+			return (T) elementos[i];
 		}
-
-		public String buscar(String dato) {
-			// TODO implementar
+		@Override
+		public T buscar(T dato) {
+			// TODO HECHO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
+			for (int i =0; i<tamanoMax; i++)
+			{
+				if (((Comparable) elementos[i]).compareTo(dato)==0)
+					return dato;
+			}
 			return null;
+		}
+		@Override
+		public T eliminar(T dato) {
+			// TODO HECHO implementar
+			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
+			T guardar=null;
+			boolean encontrado = false;
+			for (int i =0; i<tamanoMax && !encontrado; i++)
+			{
+				if (((Comparable) elementos[i]).compareTo(dato)==0)
+				{
+					encontrado=true; 
+					guardar=elementos[i];	
+					for (int j=0; j<tamanoMax-1;j++)
+					{
+						elementos[i]=elementos[j];
+					}
+				}
+			}
+			return guardar;
 		}
 
-		public String eliminar(String dato) {
-			// TODO implementar
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			return null;
-		}
 
 }

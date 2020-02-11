@@ -93,7 +93,7 @@ public class Pila<T> implements IPila<T>
 		}	
 
 	}	
-	public int darTamaño()	
+	public int darTamano()	
 	{	
 		return tamaño;	
 	}	

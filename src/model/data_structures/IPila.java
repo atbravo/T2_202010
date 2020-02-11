@@ -28,7 +28,7 @@ public interface IPila<T>
 	 * retorna el total de elementos en la pila
 	 * @return cantidad de elementos en pila
 	 */
-	public int darTamaño();
+	public int darTamano();
 	
 	
 }

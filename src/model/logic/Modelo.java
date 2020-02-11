@@ -32,14 +32,14 @@ import model.data_structures.Pila;
 public class Modelo {
 
 	public final String RUTA = "./data/comparendos_dei_2018_small.geojson";
-	
+
 	private Cola<Comparendo> cola;
 	private Pila<Comparendo> pila;
 
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico datos;
+	private IArregloDinamico<String> datos;
 
 	/**
 	 * Crea una nueva pila y una nueva lista
@@ -48,8 +48,6 @@ public class Modelo {
 
 		cola = new Cola<Comparendo>();
 		pila = new Pila<Comparendo>();
-		cargar();
-		responderRequerimientos();
 
 	}
 
@@ -59,10 +57,15 @@ public class Modelo {
 	 * @param tamano
 	 */
 	public Modelo(int capacidad) {
-		datos = new ArregloDinamico(capacidad);
+		datos = new ArregloDinamico<String>(capacidad);
 
 	}
-
+	public Cola<Comparendo> darCola(){
+		return cola;
+	}
+	public Pila<Comparendo> darPila(){
+		return pila;
+	}
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo
 	 * 
@@ -144,10 +147,27 @@ public class Modelo {
 		cola.agregarElemento(comparendo);
 	}
 	/**
+	 * imprime los comparendos de la estructura Pila en la posicion dada
+	 * @param i la posicion dada
+	 */
+	public Comparendo ImprimirenPosPila(int i) throws Exception{
+		return pila.darElementoPosicion(i);
+	}
+	/**
+	 * imprime los comparendos de la estructura Cola en la posicion dada
+	 * @param i la posicion dada
+	 * @throws Exception 
+	 */
+	public Comparendo imprimirenPosCola(int i) throws Exception {
+
+		return cola.darElementoPosicion(i);
+
+	}
+	/**
 	 * imprime los compparendos de cada estructura en la posicion dada
 	 * @param i la posicion dada
 	 */
-	public void ImprimirenPosicion(int i) {
+	/*public void ImprimirenPosicion(int i) {
 		Comparendo cPila;
 		Comparendo cCola;
 		try {
@@ -160,12 +180,12 @@ public class Modelo {
 			System.out.println(e.getMessage());
 		}
 
-	}
+	}*/
 	/**
 	 * Permite al usuario escoger el proceso a realizar
 	 * Si el usuario ingresa una opcion no listada se reinicia el programa
 	 */
-	public void responderRequerimientos()
+	/*	public void responderRequerimientos()
 	{
 
 		try
@@ -201,107 +221,112 @@ public class Modelo {
 		{
 			responderRequerimientos();
 		}
-	}
+	}*/
 	/**
 	 * Metodo que responde al primer requerimiento, imprime la informacion del primer comparendo en cada estructura
 	 */
-	public void responderRequerimiento1()
+	/*public void responderRequerimiento1()
 	{
 		System.out.println("Total comparendos leidos en pila:" + pila.darTamaño());
 		System.out.println("Total comparendos leidos en cola:" + cola.darTamaño());
 		System.out.println("Primer comparendo de pila y cola (respectivamente):");
 		ImprimirenPosicion(0);
+	}*/
+	public int darTamanoPila(){
+		return pila.darTamano();
+	}
+	public int darTamanoCola(){
+		return cola.darTamaño();
 	}
 	/**
 	 * Busca el tipo de infraccion que aparece en mas comparendos consecutivos y los imprime
 	 */
-	public void responderRequerimiento2()
+	public Pila responderRequerimiento2() throws Exception
 	{
 		//ArrayList<Comparendo> listaMax = new ArrayList<>();
 		//ArrayList<Comparendo> listaSegundo = new ArrayList<>();
 		Pila<Comparendo> pilaMax = new Pila<>();
 		Pila<Comparendo> pilaSegundo = new Pila<>();
 		int maximo = 0;
-		try
+
+		Comparendo actual = cola.eliminarElemento();
+		String maxTipo = actual.darDetalles().darInfraccion();
+		maximo = 1;
+		int rachaMaximo = 1;
+		int rachaSegundo = 0;
+		String tipoSegundo = "";
+		//listaMax.add(actual);
+		pilaMax.agregarElemento(actual);
+		while(cola.darTamaño() > 0)
 		{
-			Comparendo actual = cola.eliminarElemento();
-			String maxTipo = actual.darDetalles().darInfraccion();
-			maximo = 1;
-			int rachaMaximo = 1;
-			int rachaSegundo = 0;
-			String tipoSegundo = "";
-			//listaMax.add(actual);
-			pilaMax.agregarElemento(actual);
-			while(cola.darTamaño() > 0)
+
+			actual = cola.eliminarElemento();
+			if(maxTipo.equals(actual.darDetalles().darInfraccion()) && rachaMaximo > 0)
 			{
-
-				actual = cola.eliminarElemento();
-				if(maxTipo.equals(actual.darDetalles().darInfraccion()) && rachaMaximo > 0)
+				rachaMaximo++;
+				if(rachaMaximo >= maximo)
 				{
-					rachaMaximo++;
-					if(rachaMaximo >= maximo)
-					{
-						maximo = rachaMaximo;
-						//listaMax.add(actual);
-						pilaMax.agregarElemento(actual);
-					}
+					maximo = rachaMaximo;
+					//listaMax.add(actual);
+					pilaMax.agregarElemento(actual);
+				}
 
+			}
+			else
+			{ 
+				rachaMaximo = 0;
+				if(rachaSegundo < 1)
+				{
+					tipoSegundo = actual.darDetalles().darInfraccion();
+					//listaSegundo.removeAll(listaMax);
+					while(pilaSegundo.darTamano() > 0)
+					{
+						pilaSegundo.eliminarElemento();
+					}						
+					rachaSegundo = 0;
+				}
+
+				if(tipoSegundo.equals(actual.darDetalles().darInfraccion()))
+				{
+					rachaSegundo++;
+					//listaSegundo.add(actual);
+					pilaSegundo.agregarElemento(actual);
+					if(rachaSegundo >= maximo)
+					{
+						rachaMaximo = rachaSegundo;
+						maximo = rachaSegundo;
+						rachaSegundo = 0;
+						maxTipo = tipoSegundo;
+						tipoSegundo = "";
+						while(pilaMax.darTamano() > 0)
+						{
+							pilaMax.eliminarElemento();
+						}
+						//listaMax.removeAll(listaMax);
+						//listaMax.addAll(listaSegundo);
+						for(int i = 0; i <= pilaSegundo.darTamano(); i++)
+						{
+							pilaMax.agregarElemento(pilaSegundo.darUltimo());
+							pilaSegundo.eliminarElemento();
+						}
+						//listaSegundo.removeAll(listaSegundo);
+					}
 				}
 				else
-				{ 
-					rachaMaximo = 0;
-					if(rachaSegundo < 1)
+				{
+					//listaSegundo.removeAll(listaSegundo);
+					while(pilaSegundo.darTamano() > 0)
 					{
-						tipoSegundo = actual.darDetalles().darInfraccion();
-						//listaSegundo.removeAll(listaMax);
-						while(pilaSegundo.darTamaño() > 0)
-						{
-							pilaSegundo.eliminarElemento();
-						}						
-						rachaSegundo = 0;
-					}
-
-					if(tipoSegundo.equals(actual.darDetalles().darInfraccion()))
-					{
-						rachaSegundo++;
-						//listaSegundo.add(actual);
-						pilaSegundo.agregarElemento(actual);
-						if(rachaSegundo >= maximo)
-						{
-							rachaMaximo = rachaSegundo;
-							maximo = rachaSegundo;
-							rachaSegundo = 0;
-							maxTipo = tipoSegundo;
-							tipoSegundo = "";
-							while(pilaMax.darTamaño() > 0)
-							{
-								pilaMax.eliminarElemento();
-							}
-							//listaMax.removeAll(listaMax);
-							//listaMax.addAll(listaSegundo);
-							for(int i = 0; i <= pilaSegundo.darTamaño(); i++)
-							{
-								pilaMax.agregarElemento(pilaSegundo.darUltimo());
-								pilaSegundo.eliminarElemento();
-							}
-							//listaSegundo.removeAll(listaSegundo);
-						}
-					}
-					else
-					{
-						//listaSegundo.removeAll(listaSegundo);
-						while(pilaSegundo.darTamaño() > 0)
-						{
-							pilaSegundo.eliminarElemento();
-						}	
-						tipoSegundo = actual.darDetalles().darInfraccion();
-						rachaSegundo = 1;
-						//listaSegundo.add(actual);
-						pilaSegundo.agregarElemento(actual);
-					}
+						pilaSegundo.eliminarElemento();
+					}	
+					tipoSegundo = actual.darDetalles().darInfraccion();
+					rachaSegundo = 1;
+					//listaSegundo.add(actual);
+					pilaSegundo.agregarElemento(actual);
 				}
 			}
-			System.out.println("Tipo Maximo: "  + maxTipo);
+		}
+		/*System.out.println("Tipo Maximo: "  + maxTipo);
 			System.out.println("Cantidad: " + maximo);
 			System.out.println();
 			while(pilaMax.darTamaño() > 0)
@@ -309,14 +334,10 @@ public class Modelo {
 				System.out.println(pilaMax.darUltimo());
 				System.out.println();
 				pilaMax.eliminarElemento();
-			}
+			}*/
+		return pilaMax;
 
 
-		}
-		catch (Exception e) {
-
-			System.out.println(e.getMessage()); 
-		}
 	}
 	/**
 	 * Busca los primeros n registros que tienen el tipo de infraccion solicitado
@@ -324,34 +345,21 @@ public class Modelo {
 	 * @param infraccion el tipo de infraccion buscado
 	 * @param n la cantidad de registros solicitados
 	 */
-	public void responderRequerimiento3(String infraccion, int n)
-	{
-		try
-		{
-			int encontrados = 0;
-			ArrayList<Comparendo> lista = new ArrayList<>();
-			while(n>0 && pila.darTamaño() > 0)
-			{
-				Comparendo actual = pila.eliminarElemento();
-				if(actual.darDetalles().darInfraccion().equals(infraccion))
-				{
-					encontrados++;
-					n--;
-					lista.add(actual);
-				}
-			}
-			System.out.println("Se encontraron " + encontrados + " registros");
-			System.out.println();
-			for (Comparendo comparendo : lista) 
-			{
-				System.out.println(comparendo);
-				System.out.println();
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
 
+	public ArregloDinamico<Comparendo> responderRequerimiento3(String infraccion, int n) throws Exception
+	{
+		//try
+		//{
+		ArregloDinamico<Comparendo> lista = new ArregloDinamico<Comparendo>(n);
+		while(n>0 && pila.darTamano() > 0)
+		{
+			Comparendo actual = pila.eliminarElemento();
+			if(actual.darDetalles().darInfraccion().equals(infraccion))
+			{
+				n--;
+				lista.agregar(actual);
+			}
+		}
+		return lista;
 	}
 }

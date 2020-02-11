@@ -2,7 +2,7 @@ package model.logic;
 
 import java.awt.List;
 
-public class Comparendo
+public class Comparendo implements Comparable<Comparendo>
 {		
 	/**
 	 * 
@@ -64,6 +64,12 @@ public class Comparendo
 		String string = properties.toString() + "\n" ;
 		String string2 = geometry.toString();
 		return string + string2;
+	}
+	@Override
+	public int compareTo(Comparendo o) {
+		if(this.darDetalles().darInfraccion().equals(o.darDetalles().darInfraccion()))
+		return 0;
+		return 1;
 	}
 
 }
